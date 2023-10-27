@@ -1,0 +1,22 @@
+Required dependencies (pip install):
+django
+"psycopg[binary,pool]"
+python-decouple
+
+SECRET_KEY variable is kept in an .env file within the project. This file is in .gitignore, so you'll need to create your own. Create a file in the project root called ".env" with the following contents:
+
+SECRET_KEY = '(fifty random characters)'
+
+The project is setup to connect to a PostgreSQL database with a service file and passfile. In order to connect to the database, the project looks for both a service file and a passfile in the user's HOME directory (outside the project). Create a service file in your home directory called ".pg_service.conf" in the following format:
+
+[my_service]
+host=
+user=
+dbname=
+port=
+
+In addition to the service file, create a passfile (also in your home directory) called ".pgpass" in the following format:
+
+HOST:PORT:DBNAME:USER:PASSWORD
+
+On Linux or macOS, the passfile will not be recognized unless permissions are restricted. Run the command "chmod 0600 ~/.pgpass".
