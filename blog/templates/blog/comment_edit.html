@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if comment.name.id == user.id %}
+
 <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
 <p>{{ post.author }} | {{ post.published_at }}</p>
 <p>{{ post.content}}</p>
 
 {% for comment in comments %}
 <strong>{{ comment.name }} - {{ comment.created_on }}</strong>
-{% if comment.name.id == user.id %}
-<a href="{% url 'comment-edit' comment.id %}">Edit</a> | 
-<a href="{% url 'comment-delete' comment.id %}">Delete</a>
-{% endif %}
 <br>
 {{ comment.body }}<br><br>
 {% endfor %}
 
-<h3>Leave a comment</h3>
+<h3>Edit comment</h3>
 <form method="post">
 	{{ comment_form.as_p }}
 	{% csrf_token %}
 	<button type="submit">Submit</button>
+	<a href="{% url 'post_detail' post.id %}">Cancel</a>
 </form>
+
+{% else %}
+<p>Permission denied</p>
+{% endif %}
 
 {% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Delete Comment</h2>
+{% if comment.name.id == user.id %}
+<form method="POST">
+	{% csrf_token %}
+	<p>Are you sure you want to delete the comment "{{ comment.body }}" on post "{{ comment.post }}"?</p>
+	<div>
+		<button type="submit">Yes, delete</button>
+		<a href="{% url 'posts' %}">Cancel</a>
+	</div>
+</form>
+{% else %}
+<p>Permission denied</p>
+{% endif %}
+
+{% endblock content %}

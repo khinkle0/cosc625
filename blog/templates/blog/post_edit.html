@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Edit Post</h2>
+{% if post.author.id == user.id %}
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Save" />
+</form>
+{% else %}
+<p>Permission denied</p>
+{% endif %}
+{% endblock content %}
